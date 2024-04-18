@@ -1,0 +1,642 @@
+%% article beginning
+\documentclass[a4paper,7pt,fleqn]{article}   %% [A4纸，基本字号10pt，左对齐]{文章类型}
+
+%% 添加宏包
+\usepackage{ctex}
+\usepackage{authblk} %% 添加论文作者
+\usepackage[english]{babel} %% 英语自动断字
+\tolerance=1000    \hyphenpenalty=1000   %% 英文断行容忍程度(越高越不断行)
+\usepackage{amsmath} %% 普通数学符号
+\usepackage{amssymb} %% 加载数学环境
+\usepackage[utf8]{inputenc} %% 支持 UTF8 编码
+\usepackage{geometry} %% 页面设置
+\geometry{a4paper,left=12.5mm,right=12.5mm, top=18mm, bottom=18mm} %% 页面设置 需要 geometry
+\usepackage{graphicx} %% 可以插入图片 \includegraphics
+\usepackage{sectsty} %% 设置不同层次章节标题的字体
+\allsectionsfont{\rmfamily} %% 设置所有章节标题字体 需要 sectsty
+\usepackage{float} %% 浮动命令(例如强制图形位置[H])
+\usepackage{setspace} %% 允许改变行间距
+\linespread{0.97} %% 全文行距0.97*1.2=1.164
+\usepackage{tabularx} %% 扩展的表格环境
+\usepackage{cite} %% 引用
+\usepackage{hyperref} %% 支持超链接
+\hypersetup{
+	bookmarksopen=true, %% 展开书签
+	bookmarksnumbered=true, %% 书签带章节编号
+	colorlinks=true, %% 超链接文字带颜色
+	linkcolor=red, %% 
+	filecolor=blue, %% 引用图片颜色
+	urlcolor=cyan, %% 网址链接颜色
+	citecolor=cyan, %% 参考文献颜色
+}
+\usepackage{caption} %% 图片、表格说明
+\captionsetup{	figurename=\textbf{Fig.},	tablename=\textbf{Table}}
+\usepackage{subcaption} %% 支持子图，并排图
+\usepackage{multirow} %% 表格中合并多行
+\usepackage{multicol} %% 表格中合并多列
+\usepackage{pdfpages} %% 支持引用 pdf 文件
+%\usepackage{flushend} %% 双栏文档底部齐平
+\usepackage{siunitx} %% 国际制单位
+\usepackage{bm} %% 数学公式加粗
+\usepackage{fancyhdr} %% 页眉页脚
+\pagestyle{fancy}
+\fancyhead[L]{\itshape \small N. Ichihara and M. Ueda}
+\fancyhead[R]{\itshape \small Composites Part B 253 (2023) 110572}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt} %% 分隔线宽度
+\renewcommand{\footrulewidth}{0pt}
+\usepackage{indentfirst}
+
+
+\usepackage{titlesec} %% 标题样式修改
+\titleformat{\section}{\fontsize{10pt}{13pt} \bfseries \raggedright}{\thesection .}{1ex}{}
+\titleformat{\subsection}{\fontsize{9pt}{13pt} \raggedright \itshape}{\thesubsection .}{1ex}{}
+\renewcommand{\dblfloatpagefraction}{.9} %% 可让图片占据的位置变大
+
+
+%% 文档开始
+\begin{document}
+	\date{}
+	
+	%% 标题
+	\title{\vspace{70pt} \Large \raggedright \textbf{3D-printed high-toughness composite structures by anisotropic topology optimization}}
+	
+	%% 作者
+	\author{\vspace{-5pt}{\bfseries \leftline{Naruki Ichihara\thanks{Corresponding author.\\
+					\textit{E-mail address:} \textcolor{cyan}{ ichihara.naruki@nihon-u.ac.jp} (N. Ichihara).},
+				Masahito Ueda}}}
+	\maketitle
+	
+	\vspace{-220pt}\noindent
+	\begin{minipage}[t]{\textwidth}
+		\begin{minipage}[t]{0.85\textwidth}
+			\vspace{-\baselineskip} % 水平对齐
+			\noindent \rule{\textwidth}{0.05em}
+			\vspace{8pt}
+			\begin{minipage}[t]{0.2\textwidth}
+				\vspace{-\baselineskip} % 水平对齐
+				\vspace{6pt}
+				\includegraphics[scale=1]{elsevier-logo.jpg}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t]{0.78\textwidth}
+				\vspace{-\baselineskip} % 水平对齐
+				\vspace{6pt}
+				\begin{center}
+					{Contents lists available at \href{www.sciencedirect.com/journal/composites-part-b-engineering}{ScienceDirect}} \par
+					\vspace{15pt}				
+					{\LARGE \bfseries Composites Part B} \par
+					\vspace{15pt}				
+					journal homepage: \href{www.elsevier.com/locate/compositesb}{www.elsevier.com/locate/compositesb}
+				\end{center}
+			\end{minipage}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.14\textwidth}
+			\vspace{-\baselineskip} % 水平对齐
+			\rightline{\includegraphics[scale=1.05]{composites-logo.jpg}~~}
+		\end{minipage}
+		\vspace{10pt}
+		\noindent \rule{\textwidth}{0.36em}
+	\end{minipage}
+	
+	%% 地址
+	\vspace{90pt}
+	{\small \selectfont \leftline{\rmfamily \emph{\textsuperscript{}{Nihon University, 1-8-14 Kanda-Surugadai, Chiyoda, Tokyo, 101-8308, Japan}}}}
+	
+	\thispagestyle{empty}
+	
+	%% 摘要和关键字
+	\noindent
+	\begin{minipage}[t]{\textwidth}
+		\noindent \rule{\textwidth}{0.05em}
+		\begin{minipage}[t]{0.3\textwidth}
+			\vspace{2pt}
+			{A R T I C L E I N F O} \\
+			\rule{\textwidth}{0.05em}
+			{\fontsize{7pt}{0.8} \selectfont \textit{Keywords:} \\Polymer-matrix composites (PMCs) \\ Carbon fibers \\ Anisotropy \\ 3D printing}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.65\textwidth}
+			\vspace{2pt}
+			{A B S T R A C T} \\
+			\rule{\textwidth}{0.05em}
+			{\fontsize{7pt}{0.8} \selectfont The toughness of structures is essential to prevent catastrophic failure. This study introduced a design framework to improve the toughness of 3D-printed carbon fiber-reinforced composite structures by local latticing utilizing the intermediate material fraction obtained in the topology optimization. The framework was based on anisotropic topology optimization considering material fraction and material orientation. The optimized results were de-homogenized by the phase field-based technique to determine the 3D printing path. Experimental validations were carried out on a three-point bending beam problem. As a result, it was shown that the framework endowed toughness for the 3D-printed carbon fiber-reinforced composite structure.}\\
+		\end{minipage}
+		\noindent \rule{\textwidth}{0.05em}
+	\end{minipage}
+	\vspace{10pt}
+	
+	
+	\begin{multicols}{2} %% 双栏
+		
+		%% 第一章
+		\section{Introduction}
+		\label{Introduction}
+		A fail-safe design ensures structural safety under unexpected
+		destruction. The fail-safe designs have been validated for aerospace
+		structures. However, fail-safe capability frequently requires several
+		components to prevent catastrophic failures of entire structures, which
+		increases the structural weight. A fail-safe monolithic structure offering
+		protection from catastrophic failures, instead of structural redundancy,
+		can reduce the structural weight. The fail-safe monolithic structure enables
+		advanced designs of lightweight primary structures, which further
+		expands the use of a fail-safe design for small parts in automotive, robotics,
+		and medical applications, such as prostheses.\par    %%
+		Monolithic fail-safety can be realized with high-toughness materials.
+		However, high stiffness and strength materials such as carbon fiberreinforced
+		polymer composites exhibit brittle behavior. Fiber-hybrid
+		technique has been studied to improve the toughness \cite{r01}. Glass/carbon
+		fiber hybrids \cite{r02} and carbon/carbon fiber hybrids, including
+		those with high-modulus/high-strength \cite{r03} and
+		low-elongation/high-elongation \cite{r04}, have shown high toughness as
+		pseudo-ductility. The toughness improvement of these materials is based
+		on a transition between two failure stages. High-modulus fibers bear the
+		initial load, and subsequently, high-strength fibers withstand the
+		high-level load induced after the failure of the high-modulus fibers.
+		However, the pseudo-ductility is restricted by the toughness of the
+		constituent materials.\par     %%
+		Metastructures are generally composed of complex-lattice internal
+		structures that break the mutually exclusive relationship between stiffness
+		and toughness \cite{r05,r06}. Loading causes local buckling of the struts in
+		their lattices, which absorbs the external work. Successive local buckling
+		endows metastructures with high toughness. Many studies have examined
+		topology optimization of metastructures \cite{r07,r08,r09,r10,r11,r12,r13}. These optimization
+		frameworks divide the process into two parts with different scales;
+		first, on a small scale, the mechanical behavior of a metastructure is
+		obtained before the optimization process. Subsequently, on the entire
+		structure scale, multiple-field optimization determines the optimal
+		design parameters. These optimization schemes are focused on isotropic
+		materials including metals or polymers because of the geometrical
+		complexity of metastructure. However, anisotropic materials such as
+		fiber-reinforced composites are beneficial to endow metastructures with
+		high mechanical performance-to-weight ratios.\par     %%
+		\begin{figure*}[b!]
+			\centering
+			\includegraphics[scale=1]{fig1.jpg}
+			\caption{\small Workflow to generate optimized topology and material path for producing symmetric cross-ply orthotropic lattice geometry. (A) Setting of design domain and boundary conditions and example optimization result. (B) Phase-field of optimization results obtained by solving Eq. \eqref{eq11}. (C) Material path generated from zerolevel contour of phase field. (D) Assembled material path corresponding to 3D printing path.}
+			\label{fig1}
+		\end{figure*}
+		Additive manufacturing (AM) techniques, including stereolithography,
+		selective laser sintering, and fused filament fabrication
+		(FFF), produce metastructures \cite{r05,r14}. Among these, the FFF method
+		prints anisotropic short/continuous fiber-reinforced polymer composites
+		by a continuous extrusion process considering material (fiber)
+		continuity \cite{r15,r16}. Fiber-reinforced polymer composite lattices are an
+		emerging class of metastructures for producing lightweight
+		high-performance structures \cite{r17,r18}. The material path plays a significant
+		role in the mechanical properties of fiber-reinforced polymer
+		composites. For example, a curvilinear material path that conforms to
+		the principal loading direction improves its structural stiffness and
+		strength \cite{r19,r20,r21}. Thus, material anisotropy as well as material
+		continuity must be included in developing metastructures using
+		fiber-reinforced polymer composites.\par    %%
+		In this study, a homogenization-based topology optimization
+		framework to improve the toughness of fiber-reinforced polymer composite
+		structures by local latticing was established. The material path, i.
+		e., the 3D printing path in the FFF process, was developed based on the
+		optimized discrete vector field of the material orientation while maintaining
+		the material continuity. In the optimization process, an intermediate
+		material fraction was obtained by changing the spacing
+		between the paths. The proposed structures achieved high toughness
+		after the peak load with remaining the high loading resistance. The
+		established framework was applied to a beam structure with a symmetric
+		cross-ply orthotropic lattice geometry as an example, and the
+		experimental results showed the high-toughness metastructure presented
+		fail-safe capability.
+		
+		
+		%% 第二章
+		\section{Optimization formulation}
+		\label{Optimization formulation}
+		The minimum compliance problem was considered in this study to
+		obtain high-stiffness structures. The toughness was not included
+		explicitly in the optimization process. The toughness was endowed to
+		3D-printed carbon fiber-reinforced composite structures by local latticing
+		utilizing the intermediate material fraction obtained in the topology
+		optimization. The optimal structure was built by optimizing the field
+		variables: topology function $\chi (x)$, material fraction related to the unit
+		cell geometry $\rho (x) $, and orientation vector $\bm{\theta} (x) $.
+		\begin{figure*}[t!]
+			\centering
+			\includegraphics[scale=1]{fig2.jpg}
+			\caption{\small Asymptotic homogenization of symmetric cross-ply orthotropic lattice geometry composite. (A) Material fraction transition due to curvilinear printing path and geometries of unit cells with different material fractions. (B) Definition of unit cell. (C)-(E) Relationships between material fraction and effective stiffness ratios	$C_{11}/C_{11}^{0}$, $C_{12}/C_{12}^{0}$, and $C_{66}/C_{66}^{0}$, respectively.}
+			\label{fig2}
+		\end{figure*}
+		
+		\subsection{Topology and material fraction representation}
+		The two dependent variable fields for topology design and material
+		fraction were used to update the binary external shape and the material
+		fraction simultaneously during the optimization process. The topology
+		function, $\chi (x)$, was provided in the design domain, \emph{D}, as follows:
+		\begin{equation}
+			\chi (x) =\left\{\begin{matrix} 0 & \mathrm{for} \forall x\in D\setminus \Omega \\
+				1 & \mathrm{for} \forall x\in \Omega\end{matrix}\right.
+			\label{eq1}
+		\end{equation}
+		where $\Omega$ is the material region and $\emph{D}\setminus \Omega$ represents the void region. The
+		relaxed topology function, $\tilde{\chi} (x)$, was defined using the implicit design
+		parameter for topology, $\varphi (x) \in [0,1] $, and the relaxed Heaviside function,
+		$\tilde{H} (\varphi) $, based on the hyperbolic tangent function as follows:
+		\begin{equation}
+			\tilde{\chi} (x)=\tilde{H}(\varphi) =\frac{\tanh (\beta _{\rho _{\min} } )+\tanh (\beta (\varphi (x)-\rho _{\min} ))}
+			{\tanh (\beta _{\rho_{\min}})+\tanh (\beta (1-\rho _{\min})) } 
+			\label{eq2}
+		\end{equation}
+		where $\beta$ controls the smoothness of the projection and $\rho _{\min}$ is the
+		threshold of the cutoff value of the implicit design parameter, $\varphi (x)$,
+		which is related to the minimum material fraction.\par
+		The material fraction, $\rho (x)\in [\rho _{\min},\rho _{\max} ]$, was restricted by lower and
+		upper bounds $\rho _{\min}$ and $\rho _{\max}$, respectively. The reduced stiffness tensor 
+		$\bm{\mathrm{C}}(x)$ was defined using the above variables and is expressed as follows:
+		\begin{equation}
+			\mathrm{C}(x)=\mathrm{C}_{\mathrm{void}}+\overset{\sim p}{\chi}(\mathrm{C}(\rho)-\mathrm{C}_{\mathrm{void} })
+			\label{eq3}
+		\end{equation}
+		where $\mathrm{C}_{\mathrm{void}}\approx 0.01\times \mathrm{C}$ represents a small stiffness tensor for the void, p
+		is the penalty parameter, which is set as 3, and $\mathrm{C}_{\rho}$ is the effective
+		stiffness tensor related to the material fraction. The \emph{p} = 3 is generally
+		used to obtain a binary solution for the topology function. The additional
+		variable for the material fraction $\rho_{x}$ gives the intermediate
+		material fraction. The obtained intermediate material fraction can be
+		realized in 3D printing by controlling the spacing between the printing
+		paths, which results in local latticing of the optimized structures.\par %%
+		In this study, asymptotic homogenization was conducted to obtain
+		the relationship between the material fraction, $\rho$, and the effective
+		stiffness tensor, $\mathrm{C}(\rho)$, which was investigated experimentally considering
+		a symmetric cross-ply orthotropic lattice geometry as an example.
+		\begin{figure*}[b!]
+			\centering
+			\includegraphics[scale=1]{fig3.jpg}
+			\caption{\small Optimization results and corresponding 3D-printed structures. (A)-(C) Cases of $\rho_{\min}$ = 0.9, 0.5, and 0.3, respectively.}
+			\label{fig3}
+		\end{figure*}
+		
+		\subsection{Material orientation representation}
+		A vector representation was chosen for the material orientation field.
+		An isoparametric-projection-based method \cite{r22} was used. The orientation
+		vector, $\theta (x)\in \mathbb{R}^{2}  $, was provided in the design domain, D. This vector
+		should satisfy the following constraint:
+		\begin{equation}
+			\left \| \theta  \right \| =1\ \mathrm{for} \forall x\in D
+			\label{eq4}
+		\end{equation}  \par   %%
+		However, this position-wise constraint makes solving the optimization
+		problem difficult. A relaxed norm constraint was introduced similarly
+		to the relaxed topology function, $\tilde{\chi} (x)$.
+		\begin{equation}
+			\left \| \theta  \right \| \le 1\ \mathrm{for} \forall x\in D
+			\label{eq5}
+		\end{equation}
+		The implicit design parameters for the orientation vector,
+		$\vartheta (x)\in [-1,1]^{2}$, were provided. These parameters were converted to the
+		orientation tensor using the isoparametric projection, $\mathrm{N}: \mathbb{R}^{2}\to \mathbb{R}^{2}$, as follows:
+		\begin{equation}
+			\theta(x)=\mathrm{N}(\vartheta(x))
+			\label{eq6}
+		\end{equation}    \par     %%
+		An isoparametric projection N that converts a box constraint to a
+		circle constraint was used. For details of the formulation of the isoparametric
+		projection, refer to Ref. \cite{r22}. A rotated stiffness tensor was
+		defined as follows using the reduced stiffness tensor, C(\emph{x}), in Eq. \eqref{eq3}:
+		\begin{equation}
+			\mathrm{C}^{\mathrm{rot}}(x)=\mathbf{R}(\angle \theta)\mathrm{C}(x)\mathbf{R}^{\mathrm{T}}(\angle \theta)
+			\label{eq7}
+		\end{equation}
+		where \textbf{R} is the rotation tensor.
+		
+		\subsection{Optimization problem}
+		All design variables were vectorized to a single design vector $d(x)$ as follows:
+		\begin{equation}
+			d(x)=\begin{bmatrix}\varphi  \\\rho  \\\vartheta \end{bmatrix}
+			\label{eq8}
+		\end{equation}   \par
+		The Helmholtz equation was used to regularize the design vector,
+		$d(x)$, with a filter radius R \cite{r23} as follows:
+		\begin{equation}
+			-R^{2} \bigtriangledown ^{2} \hat{d} +\hat{d} =d
+			\label{eq9}
+		\end{equation}
+		
+		where $\hat{d}$ represents the regularized design vector. This filtering method
+		also improved the continuity of the material orientation.  \par  %%
+		The elastic compliance minimization (i.e., maximizing stiffness)
+		problem was defined, using the above equations, as follows:
+		\begin{subequations}
+			\begin{align}
+				\min_{d} F\equiv \int_{D}\varepsilon : \mathrm{C}^{\mathrm{rot}}: \varepsilon\ \mathrm{d}\Omega
+				\label{eq10a}\\
+				\mathrm{Subject to:}\\
+				d\in [0,1]\times [\rho _{\min},\rho _{\max}]\times [-1,1]^{2}   
+				\label{eq10b} \\
+				G(d)\equiv \int_{D}\tilde{\chi}\rho\ \mathrm{d}\Omega -\bar{M} \le 0
+				\label{eq10c}\\
+				\left\{\begin{matrix}-\bigtriangledown \cdot \mathbf{\sigma}  =0\ \mathrm{in}\ D 
+					\\\mathbf{u} =0\ \mathrm{on}\ \mathit{\Gamma}_{D} 
+					\\\mathbf{\sigma}  \cdot \mathbf{\mathrm{n}} =t \ \mathrm{on}\ \mathit{\Gamma}_{N} \end{matrix}\right.
+				\label{eq10d}\\
+				\sigma =\mathrm{C} ^{\mathrm{rot}} \mathrm{\varepsilon}
+				\label{eq10e}\\
+				\mathrm{\varepsilon } =\frac{1}{2}(\bigtriangledown u+(\bigtriangledown u)^{\mathrm{T}})
+				\label{eq10f}
+			\end{align}
+		\end{subequations}
+		where $\bar{M} $ is the upper boundary of the total material amount, \emph{u} is the
+		displacement vector fixed as zero on the Dirichlet boundary, $\mathit{\Gamma _{D}}$, $\bm{t}$ is a traction vector defined on Neumann boundary $\mathit{\Gamma _{N}}$, $\bm{n}$ is the normal vector, $\sigma$ is the stress tensor, and $\varepsilon$ is the strain tensor. By optimization using finite element analysis (FEA), the design variables were obtained as a discretized vector field, and the results are shown in Fig. \ref{fig1}A.
+		\begin{figure*}[t!]
+			\centering
+			\includegraphics[scale=1]{fig4.jpg}
+			\caption{\small Results of three-point bending tests. (A) Force-defection curves, (B)-(E) Printing path of $\rho_{\min}$ = 0.9 (0-1 structure), $\rho_{\min}$ = 0.5, $\rho_{\min}$ = 0.3, and $\pm45^{\circ}$ uniform grid, respectively. (F) Enlarged force-defection curves to represent the initial stiffness. (G) Comparisons of the stiffness between FEA and experimental results. (H)Comparison of residual toughness.}
+			\label{fig4}
+		\end{figure*}
+		
+		%% 第三章
+		\section{Print path generation based on optimization result}
+		\label{Print path generation based on optimization result}
+		A de-homogenization approach was used to build a composite variable
+		lattice structure based on the optimization results because the
+		discretized vector representation homogenized the design variables.
+		Various de-homogenization techniques have been proposed, including
+		the projection approach \cite{r24}, the spinodoid metamaterial approach \cite{r25,r26}
+		, the explicit geometry approach \cite{r14}, and deep learning-based approaches
+		\cite{r27}. However, these approaches are unsuitable for FFF, owing
+		to the geometrical complexity of branching and holes.\par    %%
+		In this study, a printing path was directly de-homogenized from the
+		optimization results, instead of projecting the complex geometry. The
+		printing path was generated using the phase-field approach, in which a
+		stripe pattern was derived based on the orientation vectors, which is
+		shown in Fig. \ref{fig1}B \cite{r21}. Two stripe patterns, that follow the optimal
+		vector field and its orthogonal direction, are needed for the orthotropic
+		lattice geometry. This method enabled the generation of a material path
+		for a variable lattice with material continuity. The following equation
+		was used to obtain the \emph{i}-th layer of the phase field $\varphi_{i}$, for the variable lattices:
+		\begin{equation}
+			\frac{\partial \varphi _{i} }{\partial t} =-(\bigtriangledown ^{2}+k^{2})^{2}\varphi _{i}+
+			2q^{2}\bigtriangledown \cdot \left \{ (\theta _{i}\otimes \theta _{i})\bigtriangledown \varphi _{i} \right \}
+			+\varepsilon \varphi _{i}-\varphi_{i}^{3} 
+			\label{eq11}
+		\end{equation}
+		where $\theta_{i}$ denotes the optimized orientation vector field of 
+		
+		the \emph{i}-th layer. \emph{q} = 2 and $\varepsilon$ = 20 are the parameters. The wavenumber, \emph{k}, is a function of the material fraction, $\rho$, and the width of the material path $w_{0}$, as follows:
+		\begin{equation}
+			k=f(\rho ;w_{0})
+			\label{eq12}
+		\end{equation}   \par     %%
+		The specific form of function \emph{f} is defined in Section \ref{Experimental}. The material
+		path was obtained as a zero-level contour of the phase field, $\phi_{i}$ (Fig. \ref{fig1}C).
+		Finally, the material path was cut using the boundary shape, which is
+		shown in Fig. \ref{fig1}D. The material path was used as the 3D printing path in the FFF process.
+		
+		%% 第四章
+		\section{Experimental}
+		\label{Experimental}
+		
+		\subsection{Effective stiffness tensor of symmetric cross-ply orthotropic lattice}
+		The effective stiffness tensor, $\mathrm{C}(\rho)$, must be related to the material
+		fraction, $\rho$, in the optimization process. An asymptotic homogenization
+		method was used to obtain the effective stiffness tensor as a function of
+		the material fraction. In this study, a symmetric cross-ply orthotropic
+		lattice geometry was adopted as an example of a variable lattice, and it is
+		shown in Fig. \ref{fig2}A. Orthogonal anisotropy was assumed in the FFF process
+		of short carbon fiber-reinforced polymer composites, and the principal
+		material direction coincided with the printing direction (Fig. \ref{fig2}B). The
+		material fraction, $\rho$, was a variable and represented by the printing path
+		width, $w_{0}$, and the length, \emph{L}, of a unit cell.
+		\begin{equation}
+			\rho(L)=\frac{w_{0}}{L}
+			\label{eq13}
+		\end{equation}
+		where the printing path width, $w_{0}$, was set as a constant and \emph{L} was
+		changed to correspond to the material fraction, $\rho$. The wave number, \emph{k},
+		in Eq. \eqref{eq12} was defined based on Eq. \eqref{eq13} as follows:
+		\begin{equation}
+			k=\frac{\pi \rho \chi}{w_{0}} 
+			\label{eq14}
+		\end{equation}   \par   %%
+		The stacking sequence was indicated using the optimal orientation $\theta$ as follows:
+		\begin{equation}
+			\theta_{i}=[\angle \theta /\angle \theta +90^{\circ}]_{(n/2)s}
+			\label{eq15}
+		\end{equation}
+		where \emph{n} is the total number of stackings and s represents symmetry. \par   %%
+		Two-dimensional optimization was considered in this study. A unit
+		cell of the symmetric cross-ply orthotropic lattice geometry exhibited
+		the same material properties in the two orthogonal directions. Therefore,
+		the independent components of the stiffness tensor were three;
+		$C_{11}(=C_{22})$, $C_{12}$, and $C_{66}$. Fig. \ref{fig2}C-E presents the relationships between
+		the stiffness ratios, $C_{11}/C_{11}^{0}$, $C_{12}/C_{12}^{0}$, and $C_{66}/C_{66}^{0}$, and the material
+		fraction, $\rho$, where superscript 0 represents solid stiffness. The short
+		carbon fiber-reinforced polyamide 12 was used in this study. The
+		longitudinal and transverse modulus were obtained by the tensile tests
+		of the 3D-printed specimens and listed in Table \ref{tab1}. The shear modulus
+		was obtained by fitting between FEA and the experimental results of the
+		$\pm45^{\circ}$ uniform grid structure. Here, the small shear stiffness was used in
+		the optimization to promote the orientation of materials to the principal
+		loading direction. Tensile tests were conducted on 3D-printed uniform
+		grids of short carbon fiber-reinforced polyamide 12 composites with
+		several material fractions to validate the calculation results, which are
+		shown in Fig. \ref{fig2}C. The experimental results supported the accuracy of the
+		calculations.
+		
+		\subsection{Numerical implementation}
+		The optimization problem expressed in Eq. \eqref{eq10a} was resolved using
+		the FEA method. The FEA method was used to determine the total strain
+		energy by solving the elastic problem using the current design variables.
+		Subsequently, a sensitivity-based optimization algorithm (the method of
+		moving asymptotes) iteratively updated the design variables. FEniCS, an
+		FEA framework in Python, was used for all analyses, including asymptotic
+		homogenization. The sensitivities of the design variables were
+		calculated using the pyadjoint algorithm.
+		\begin{table}[H]
+			\caption{Material properties.}
+			\small
+			\begin{tabular*}{90mm}{p{40mm}p{40mm}}
+				\hline
+				&Short carbon fiber-reinforced polyamide 12\\
+				\hline
+				Young's modulus along printing direction & 4848\\
+				& \\
+				$E_{11}$ [MPa] & \\
+				\hline
+				Young's modulus along transverse direction & 725\\
+				& \\
+				$E_{12}$ [MPa] & \\
+				\hline
+				In-plane shear stiffness & 1367($400^{*}$)\\
+				& \\
+				$G_{11}$ [MPa] & \\
+				\hline
+				In-plane Poisson's ratio & 0.33\\
+				& \\
+				$\nu_{12}[-]$ [MPa] & \\
+				\hline
+			\end{tabular*}
+			(\raggedright $^{*}$ was used in the optimization).
+			\label{tab1}
+		\end{table}
+		
+		\subsection{Materials and method}
+		A short carbon fiber-reinforced polyamide 12 filament (PolyMide
+		PA12-CF, Polymaker) was used for 3D printing. A three-point bending
+		beam configuration was chosen for experimental validation. All specimens
+		were fabricated using an FFF-based 3D printer (Composer A4,
+		Anisoprint) with the nozzle heated to \SI{270 }{\degreeCelsius} and the building plate to
+		\SI{60 }{\degreeCelsius}. The printing path width was set as 0.5 mm, and the thickness of
+		each layer was 0.2 mm. The total thickness of each specimen was 10 mm (50 layers).
+		\begin{figure*}[t!]
+			\centering
+			\includegraphics[scale=1]{fig5.jpg}
+			\caption{\small Image sequences during three-point bending tests. (A) $\rho_{\min}$ = 0.9 (0-1 structure), (B) $\rho_{\min}$ = 0.5, (C) $\rho_{\min}$ = 0.3, and (D) $\pm45^{\circ}$ uniform grid.}
+			\label{fig5}
+		\end{figure*}
+		\begin{figure*}[t!]
+			\centering
+			\includegraphics[scale=1]{fig6.jpg}
+			\caption{\small Material discontinuity defects when $\rho_{\min}$ = 0.3. (A) Deformation visualized by DIC technique. (B) Enlarged view of deformation.}
+			\label{fig6}
+		\end{figure*}
+		
+		\subsection{Optimization results}
+		Fig. \ref{fig3}A-C shows the optimized results and the 3D-printed beams,
+		which were obtained using different lower bounds of the material
+		fraction, $\rho_{\min}$ = 0.9, 0.5, and 0.3, under the same constraint on the
+		material amount, $\bar{M} $ = 0.4. Stringing was developed due to the material
+		oozing out of the nozzle while the print head was traveling to another
+		point. This defect did not affect the mechanical performance of the
+		structures. The initial material fractions and the orientations were set as
+		$\rho_{\min}$ and $45^{\circ}$, respectively; the $0^{\circ}$ direction corresponding to the x1 direction,
+		which is shown in Fig. \ref{fig1}A. The optimized results of the structural
+		compliance of the three structures are displayed in Fig.\ref{fig3}, where all
+		structures show almost the same values because the objectives
+		converged in all cases. The printing paths were directed to the optimized
+		orientation. The low material fraction was realized by spacing the
+		printing paths, which developed locally latticed structures. The high
+		$\rho_{\min}$ = 0.9 provided 0-1 structures.    \par    %%
+		Latticed structures were obtained by adopting lower bounds of the
+		material fraction, $\rho_{\min}$ = 0.5 and 0.3, in the optimization process. The
+		high toughness was expected for the latticed structures because of the
+		successive small-scale local buckling of the lattice geometry due to
+		loading. The improvement of toughness was investigated experimentally,
+		as discussed in the following section.
+		
+		\subsection{Assessment of toughness improvement by three-point bending test}
+		Three-point bending tests were conducted on 3D-printed fiberreinforced
+		polymer composite variable-lattice structures. In the case of
+		$\rho_{\min}$ = 0.5, the loading-unloading tests were performed after the peak
+		load to show the recoverability. Fig. \ref{fig4}A shows the load-deflection curves
+		of the structures with various lower bounds of the material fraction and
+		a $\pm45^{\circ}$ uniform grid structure as a benchmark. For each curve, A 75\%
+		peak load, peak load, and 15\% reduction after the peak load points were
+		plotted. The deformation of each structure during the bending tests is
+		shown in Fig. \ref{fig5}.    \par    %%
+		The 0-1 structure showed the highest stiffness and peak load and the
+		$\pm45^{\circ}$ uniform grid structure showed the lowest. Fig. \ref{fig4}G compares the
+		stiffness between the FEA and experimental results. In the cases of 0-1
+		structure and $\pm45^{\circ}$ uniform grid structure, the FEA results predicted the
+		experimental result with high accuracy (the error is less than 3.7\%).
+		However, the experimental results with $\rho_{\min}$ = 0.5 and 0.3 showed
+		smaller stiffness as compared to the FEA results. This error was attributed
+		to the detached printing path that was not considered in the optimization
+		process. Fig. \ref{fig6}A shows the deformation of the 3D-printed
+		structure with $\rho_{\min}$ = 0.3, as visualized by the digital image correlation
+		(DIC) technique, and Fig. \ref{fig6}B shows an enlarged view of the deformation.
+		In the large deformation regions represented as a red color,
+		detached material paths were found, which caused discontinuous load
+		transfer. Local large deformations occurred at the points associated with
+		a reduction in the stiffness of the entire structure. This print-path defect
+		might be caused by the divergence of the optimized material orientation
+		fields. Some papers proposed the reduction of the total divergence of the
+		material orientation, termed divergence-free vector field methods \cite{r28}.
+		However, these constraints may strongly restrict the solution space,
+		therefore, the result may fall into local minima.     \par    %%
+		The 0-1 structure presented brittle failure after the peak load, with
+		abrupt crack propagation (Fig. \ref{fig5}A). In contrast, with $\rho_{\min}$ = 0.3 and 0.5,
+		the ductility was observed after the peak loading. Local buckling
+		developed because of the latticed structure, and buckling failure progressed
+		after the peak load (Fig. \ref{fig5}B and C). The successive local buckling
+		behavior led to the brittle failure of the entire structure. Unloading-
+		reloading tests were conducted after the peak loading, in which the
+		load recovered to almost unloaded points.     \par    %%
+		The residual toughness was calculated as an area between peak load
+		point to 15\% reduction point after peak load to indicate the monolithic
+		fail-safe capability. The residual toughness indicates how much energy
+		can be held after peak loading with remaining high loading. Fig. \ref{fig4}H
+		shows the residual toughness of each structure. The lattice structures
+		showed improved residual toughness as compared to the 0-1 structure.
+		The local latticing utilizing the intermediate material fraction obtained
+		in the topology optimization improved the residual toughness of the 3Dprinted
+		fiber-reinforced polymer composite.
+		
+		%% 第五章
+		\section{Conclusions}
+		\label{Conclusions}
+		A homogenization-based topology optimization framework was
+		established for fiber-reinforced polymer composite variable lattices. A
+		3D printing path was generated by considering material continuity
+		based on the optimized results of the topology and material orientation.
+		The proposed method was used on a beam structure with a symmetric
+		cross-ply orthotropic lattice geometry. The intermediate material fraction
+		was realized by spacing the printing path during 3D printing.
+		Unloading-reloading tests after the peak load also validated the recoverability
+		of load resistance. The latticing of the intermediate material
+		fraction regions improved the toughness of 3D-printed carbon fiberreinforced
+		polymers.
+		
+		%% 各个作者对本文的贡献
+		\section*{CRediT authorship contribution statement}
+		\textbf{N. Ichihara:} Conceptualization, Methodology, Investigation,
+		Validation, and Writing - Original Draft. \textbf{M. Ueda:} Conceptualization,
+		Writing - Review \& Editing, and Supervision.
+		
+		%% 出版利益说明
+		\section*{Declaration of competing interest}
+		The authors declare that they have no known competing financial
+		interests or personal relationships that could have appeared to influence
+		the work reported in this paper.
+		
+		%% 数据支持
+		\section*{Data availability}
+		Data will be made available on request.
+		
+		%% 基金支持
+		\section*{Acknowledgments}
+		Funding: This research did not receive any specific grants from
+		funding agencies in the public, commercial, or not-for-profit sectors.
+		
+		%% 参考文献
+		\begin{thebibliography}{99} \small
+			\bibitem[1]{r01}\href{https://doi.org/10.1080/09506608.2018.1467365}{Swolfs Y, Verpoest I, Gorbatikh L. Recent advances in fiber-hybrid composites: materials selection, opportunities and applications. Int Mater Rev 2019;64:181-215.}
+			\bibitem[2]{r02}\href{https://doi.org/10.1016/j.compositesa.2015.02.014}{Yu H, Longana ML, Jalalvand M, Wisnom MR, Potter KD. Pseudo-ductility in intermingled carbon/glass hybrid composites with highly aligned discontinuous fibers. Compos Part A Appl Manuf 2015;73:35-44.}
+			\bibitem[3]{r03}\href{https://doi.org/10.1016/j.compositesb.2020.108213}{Sapozhnikov SB, Swolfs Y, Lomov SV. Pseudo-ductile unidirectional high modulus/high strength carbon fiber hybrids using conventional ply thickness prepregs. Compos B Eng 2020;198:108213.}
+			\bibitem[4]{r04}\href{https://doi.org/10.1016/j.compositesb.2016.11.049}{Czél G, Jalalvand M, Wisnom MR, Czigány T. Design and characterization of highperformance, pseudo-ductile all-carbon/epoxy unidirectional hybrid composites. Compos B Eng 2017;111:348-56.}
+			\bibitem[5]{r05}\href{https://doi.org/10.1038/s41563-021-01182-1}{Shaikeea AJD, Cui H, O'Masta M, Zheng XR, Deshpande VS. The toughness of mechanical metamaterials. Nat Mater 2022;21:297-304.}
+			\bibitem[6]{r06}\href{https://doi.org/10.1016/j.jmps.2021.104341}{Yin S, Guo W, Wang H, Huang Y, Yang R, Hu Z, et al. Strong and tough bioinspired additive-manufactured dual-phase mechanical metamaterial composites. J Mech Phys Solid 2021;149:104341.}
+			\bibitem[7]{r07}\href{https://doi.org/10.1109/TVCG.2017.2655523}{Wu J, Aage N, Westermann R, Sigmund O. Infill optimization for additive manufacturing—approaching bone-like porous structures. IEEE Trans Visual Comput Graph 2018;24:1127-40.}
+			\bibitem[8]{r08}\href{https://doi.org/10.1126/sciadv.abf4838}{Sanders ED, Pereira A, Paulino GH. Optimal and continuous multilattice embedding. Sci Adv 2021;7:eabf4838.}
+			\bibitem[9]{r09}\href{https://doi.org/10.1007/s00158-021-02874-7}{Groen JP, Thomsen CR, Sigmund O. Multi-scale topology optimization for stiffness and de-homogenization using implicit geometry modeling. Struct Multidiscip Optim 2021;63:2919-34.}
+			\bibitem[10]{r10}\href{https://doi.org/10.1016/j.compstruct.2021.114768}{Jung T, Lee J, Nomura T, Dede EM. Inverse design of three-dimensional fiber reinforced composites with spatially-varying fiber size and orientation using multiscale topology optimization. Compos Struct 2022;279:114768.}
+			\bibitem[11]{r11}\href{https://doi.org/10.1016/j.cma.2020.113220}{Kim D, Lee J, Nomura T, Dede EM, Yoo J, Min S. Topology optimization of functionally graded anisotropic composite structures using homogenization design method. Comput Methods Appl Mech Eng 2020;369:113220.}
+			\bibitem[12]{r12}\href{https://doi.org/10.1002/nme.5575}{Groen JP, Sigmund O. Homogenization-based topology optimization for highresolution manufacturable microstructures. Int J Numer Methods Eng 2018;113: 1148-63.}
+			\bibitem[13]{r13}\href{https://doi.org/10.1007/s00158-021-02881-8}{Wu J, Sigmund O, Groen JP. Topology optimization of multi-scale structures: a review. Struct Multidiscip Optim 2021;63:1455-80.}
+			\bibitem[14]{r14}\href{https://doi.org/10.1016/j.addma.2021.101920}{Lee J, Kwon C, Yoo J, Min S, Nomura T, Dede EM. Design of spatially-varying orthotropic infill structures using multiscale topology optimization and explicit dehomogenization. Addit Manuf 2021;40:101920.}
+			\bibitem[15]{r15}\href{https://doi.org/10.1038/srep23058}{Matsuzaki R, Ueda M, Namiki M, Jeong T-K, Asahara H, Horiguchi K, et al. Three-dimensional printing of continuous-fiber composites by in-nozzle impregnation. Sci Rep 2016;6:23058.}
+			\bibitem[16]{r16}\href{https://doi.org/10.1016/j.cjmeam.2022.100016}{Tian X, Todoroki A, Liu T, Wu L, Hou Z, Ueda M, et al. 3D printing of continuous fiber reinforced polymer composites: development, application, and prospective. Chin J Mech Eng Addit Manuf Front 2022;1:100016.}
+			\bibitem[17]{r17}\href{https://doi.org/10.1002/adma.201401804}{Compton BG, Lewis JA. 3D-printing of lightweight cellular composites. Adv Mater 2014;26:5930-5.}
+			\bibitem[18]{r18}\href{https://doi.org/10.1016/j.compositesb.2022.109894}{Estakhrianhaghighi E, Mirabolghasemi A, Shi J, Lessard L, Akbarzadeh AH. Architected cellular fiber-reinforced composite. Compos B Eng 2022;238:109894.}
+			\bibitem[19]{r19}\href{https://doi.org/10.1016/j.compscitech.2019.107905}{Sugiyama K, Matsuzaki R, Malakhov AV, Polilov AN, Ueda M, Todoroki A, et al. 3D printing of optimized composites with variable fiber volume fraction and stiffness using continuous fiber. Compos Sci Technol 2020;186:107905.}
+			\bibitem[20]{r20}\href{https://doi.org/10.1016/j.compstruct.2020.112956}{Matsuzaki R, Mitsui K, Hirano Y, Todoroki A, Suzuki Y. Optimization of curvilinear fiber orientation of composite plates and its experimental validation. Compos Struct 2021;255:112956.}
+			\bibitem[21]{r21}\href{https://doi.org/10.1016/j.compositesb.2022.109626}{Ichihara N, Ueda M. 3D-print infill generation using the biological phase field of an optimized discrete material orientation vector field. Compos B Eng 2022;232: 109626.}
+			\bibitem[22]{r22}\href{https://doi.org/10.1002/nme.4799}{Nomura T, Dede EM, Lee J, Yamasaki S, Matsumori T, Kawamoto A, et al. General topology optimization method with continuous and discrete orientation design using isoparametric projection. Int J Numer Methods 2015;101:571-605. Eng.}
+			\bibitem[23]{r23}\href{https://doi.org/10.1002/nme.3072}{Lazarov BS, Sigmund O. Filters in topology optimization based on Helmholtz-type differential equations. Int J Numer Methods Eng 2011;86:765-81.}
+			\bibitem[24]{r24}\href{https://doi.org/10.1007/s00158-020-02681-6}{Stutz FC, Groen JP, Sigmund O, Bærentzen JA. Singularity aware dehomogenization for high-resolution topology optimized structures. Struct Multidiscip Optim 2020;62:2279-95.}
+			\bibitem[25]{r25}\href{https://doi.org/10.1038/s41524-020-0341-6}{Kumar S, Tan S, Zheng L, Kochmann DM. Inverse-designed spinodoid metamaterials. Npj Comput Mater 2020;6:1-10.}
+			\bibitem[26]{r26}\href{https://doi.org/10.1016/j.cma.2021.113894}{Zheng L, Kumar S, Kochmann DM. Data-driven topology optimization of spinodoid metamaterials with seamlessly tunable anisotropy. Comput Methods Appl Mech Eng 2021;383:113894.}
+			\bibitem[27]{r27}\href{https://doi.org/10.1016/j.cma.2021.114197}{Elingaard MO, Aage N, Bærentzen JA, Sigmund O. De-homogenization using convolutional neural networks. Comput Methods Appl Mech Eng 2022;388:114197.}
+			\bibitem[28]{r28}\href{https://doi.org/10.1016/j.cma.2020.113574}{Tian Y, Pu S, Shi T, Xia Q. A parametric divergence-free vector field method for theoptimization of composite structures with curvilinear fibers. Comput Methods Appl Mech Eng 2021;373:113574.}
+			
+		\end{thebibliography}
+		
+	\end{multicols}
+	
+\end{document}
